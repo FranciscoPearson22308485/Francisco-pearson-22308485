@@ -8,7 +8,7 @@
 | Campo    | Valor    |
 |----------|----------|
 | Username | admin    |
-| Password | root2004 |
+| Password |          |
 
 ## Acesso
 
