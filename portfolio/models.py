@@ -10,3 +10,12 @@ class Licenciatura(models.Model):
 
     def __str__(self):
         return self.sigla
+
+class Docente(models.Model):
+    nome = models.CharField(max_length=200)
+    email = models.EmailField(blank=True)
+    url_pagina_lusofona = models.URLField(blank=True)
+    foto = models.ImageField(upload_to='docentes/', blank=True, null=True)
+
+    def __str__(self):
+        return self.nome
