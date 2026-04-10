@@ -19,3 +19,17 @@ class Docente(models.Model):
 
     def __str__(self):
         return self.nome
+
+class UnidadeCurricular(models.Model):
+    nome = models.CharField(max_length=200)
+    sigla = models.CharField(max_length=20)
+    ano_curricular = models.IntegerField()
+    semestre = models.IntegerField()
+    descricao = models.TextField(blank=True)
+    ects = models.IntegerField()
+    imagem = models.ImageField(upload_to='ucs/', blank=True, null=True)
+    licenciatura = models.ForeignKey(Licenciatura, on_delete=models.CASCADE, related_name='ucs')
+    docentes = models.ManyToManyField(Docente, blank=True)
+
+    def __str__(self):
+        return self.sigla
