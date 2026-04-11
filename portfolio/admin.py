@@ -56,6 +56,6 @@ class InteresseAdmin(admin.ModelAdmin):
 
 @admin.register(MakingOf)
 class MakingOfAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'tipo', 'entidade_relacionada', 'data')
-    list_filter = ('tipo',)
-    search_fields = ('titulo', 'entidade_relacionada')
+    list_display  = ('titulo', 'tipo', 'entidade_relacionada', 'uc', 'projeto', 'data')
+    list_filter   = ('tipo', 'uc')
+    search_fields = ('titulo', 'entidade_relacionada', 'descricao')
