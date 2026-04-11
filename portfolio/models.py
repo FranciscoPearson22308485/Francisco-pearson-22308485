@@ -149,17 +149,28 @@ class MakingOf(models.Model):
         ('ERR', 'Erro e Correção'),
         ('JUS', 'Justificação'),
         ('EVO', 'Evolução do Modelo'),
-        ('IA', 'Uso de IA'),
+        ('IA',  'Uso de IA'),
     ]
-    titulo = models.CharField(max_length=200)
-    data = models.DateField(auto_now_add=True)
-    descricao = models.TextField()
-    foto = models.ImageField(upload_to='makingof/', blank=True, null=True)
-    tipo = models.CharField(max_length=3, choices=TIPO_CHOICES, default='JUS')
-    entidade_relacionada = models.CharField(max_length=100, blank=True, help_text="Nome da entidade que este registo documenta")
+    titulo               = models.CharField(max_length=200)
+    data                 = models.DateField(auto_now_add=True)
+    descricao            = models.TextField()
+    foto                 = models.ImageField(upload_to='makingof/', blank=True, null=True)
+    tipo                 = models.CharField(max_length=3, choices=TIPO_CHOICES, default='JUS')
+    entidade_relacionada = models.CharField(
+        max_length=100, blank=True,
+        help_text="Nome genérico da entidade (ex: Tecnologia, TFC)"
+    )
+    uc      = models.ForeignKey(
+        'UnidadeCurricular', on_delete=models.SET_NULL,
+        null=True, blank=True, related_name='makingof_entries'
+    )
+    projeto = models.ForeignKey(
+        'Projeto', on_delete=models.SET_NULL,
+        null=True, blank=True, related_name='makingof_entries'
+    )
 
     class Meta:
         ordering = ['-data']
 
     def __str__(self):
-        return f"{self.tipo} - {self.titulo}"
+        return f"{self.get_tipo_display()} — {self.titulo}"
