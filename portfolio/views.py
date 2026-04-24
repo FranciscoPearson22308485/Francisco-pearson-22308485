@@ -1,5 +1,13 @@
 from django.shortcuts import render
-from .models import Tecnologia, UnidadeCurricular, Projeto, TFC
+from .models import Tecnologia, UnidadeCurricular, Projeto, TFC, Competencia, Formacao
+
+def competencias_view(request):
+    competencias = Competencia.objects.prefetch_related('tecnologias', 'projetos').all()
+    return render(request, 'portfolio/competencias.html', {'competencias': competencias})
+
+def formacoes_view(request):
+    formacoes = Formacao.objects.prefetch_related('tecnologias').all()
+    return render(request, 'portfolio/formacoes.html', {'formacoes': formacoes})
 
 def home_view(request):
     return render(request, 'portfolio/home.html')

@@ -1,0 +1,28 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<section>
+    <h2>Competências</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+        {% for competencia in competencias %}
+            <article style="border: 1px solid #eee; padding: 15px; border-radius: 8px; box-shadow: 2px 2px 5px rgba(0,0,0,0.05);">
+                <h3>{{ competencia.nome }}</h3>
+                <p><strong>Tipo:</strong> {{ competencia.get_tipo_display }}</p>
+                <p><strong>Nível:</strong> {{ competencia.get_nivel_display }}</p>
+                <p>{{ competencia.descricao }}</p>
+                
+                {% if competencia.tecnologias.all %}
+                <p><strong>Tecnologias Relacionadas:</strong><br>
+                    {% for tech in competencia.tecnologias.all %}
+                        <small style="background: #f0f0f0; padding: 2px 5px; border-radius: 3px;">{{ tech.nome }}</small>
+                    {% endfor %}
+                </p>
+                {% endif %}
+            </article>
+        {% empty %}
+            <p>Ainda não foram registadas competências.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

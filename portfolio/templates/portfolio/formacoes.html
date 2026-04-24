@@ -1,0 +1,36 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<section>
+    <h2>Formação e Certificações</h2>
+    
+    {% if formacoes %}
+        {% for formacao in formacoes %}
+            <article style="margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px;">
+                <header>
+                    <h3>{{ formacao.titulo }}</h3>
+                    <p><strong>{{ formacao.instituicao }}</strong> | {{ formacao.get_tipo_display }}</p>
+                </header>
+                
+                <p>📅 {{ formacao.data_inicio|date:"M Y" }} - 
+                   {% if formacao.data_conclusao %}{{ formacao.data_conclusao|date:"M Y" }}{% else %}Presente{% endif %}
+                </p>
+
+                {% if formacao.url %}
+                    <p><a href="{{ formacao.url }}" target="_blank">Página do Curso</a></p>
+                {% endif %}
+
+                {% if formacao.tecnologias.all %}
+                    <p><strong>Foco:</strong> 
+                    {% for tech in formacao.tecnologias.all %}
+                        {{ tech.nome }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                    </p>
+                {% endif %}
+            </article>
+        {% endfor %}
+    {% else %}
+        <p>Nenhuma formação registada.</p>
+    {% endif %}
+</section>
+{% endblock %}
