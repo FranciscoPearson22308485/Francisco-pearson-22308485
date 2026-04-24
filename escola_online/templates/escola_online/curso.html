@@ -1,0 +1,36 @@
+{% extends 'escola_online/base.html' %}
+
+{% block content %}
+<article>
+    <header>
+        <h2>Curso: {{ curso.nome }}</h2>
+    </header>
+
+    {% if curso.imagem %}
+        <figure>
+            <img src="{{ curso.imagem.url }}" alt="Logótipo de {{ curso.nome }}" width="300">
+            <figcaption>Logótipo oficial do curso</figcaption>
+        </figure>
+    {% endif %}
+
+    <section>
+        <h3>Informação Geral</h3>
+        <p><strong>Professor Responsável:</strong> {{ curso.professor.nome }} ({{ curso.professor.email }})</p>
+    </section>
+
+    <section>
+        <h3>Alunos Inscritos</h3>
+        <ul>
+            {% for aluno in curso.alunos.all %}
+                <li>{{ aluno.nome }} - Nº {{ aluno.numero }}</li>
+            {% empty %}
+                <li>Ainda não existem alunos inscritos neste curso.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <nav>
+        <p><a href="{% url 'escola_online:cursos' %}">← Voltar à lista de cursos</a></p>
+    </nav>
+</article>
+{% endblock content %}

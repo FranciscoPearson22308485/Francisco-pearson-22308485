@@ -7,7 +7,9 @@
     {% if cursos %}
         {% for curso in cursos %}
             <article style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
-                <h3>{{ curso.nome }}</h3>
+                <h3>
+                    <a href="{% url 'escola_online:curso' curso.id %}">{{ curso.nome }}</a>
+                </h3>
                 
                 {% if curso.imagem %}
                     <img src="{{ curso.imagem.url }}" alt="{{ curso.nome }}" width="200">
@@ -15,14 +17,7 @@
 
                 <p><strong>Professor:</strong> {{ curso.professor.nome }}</p>
 
-                <h4>Alunos Inscritos:</h4>
-                <ul>
-                    {% for aluno in curso.alunos.all %}
-                        <li>{{ aluno.nome }} ({{ aluno.numero }})</li>
-                    {% empty %}
-                        <li>Nenhum aluno inscrito.</li>
-                    {% endfor %}
-                </ul>
+                <p><a href="{% url 'escola_online:curso' curso.id %}">Ver detalhes do curso →</a></p>
             </article>
         {% endfor %}
     {% else %}
