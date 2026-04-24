@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio - Francisco Pearson</title>
+</head>
+<body>
+    <header>
+        <h1>Francisco Pearson - Portfólio</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'portfolio:home' %}">Home</a></li>
+                </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Francisco Pearson (22308485) - Engenharia Informática e Gestão</p>
+    </footer>
+</body>
+</html>

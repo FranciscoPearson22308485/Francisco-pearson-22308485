@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from .models import Tecnologia
 
-# Create your views here.
+def home_view(request):
+    return render(request, 'portfolio/home.html')
+
+def tecnologias_view(request):
+    tecnologias = Tecnologia.objects.all()
+    return render(request, 'portfolio/tecnologias.html', {'tecnologias': tecnologias})

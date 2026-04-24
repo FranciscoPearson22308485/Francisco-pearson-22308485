@@ -1,0 +1,32 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<section>
+    <h2>Tecnologias</h2>
+    
+    {% if tecnologias %}
+        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+            {% for tecnologia in tecnologias %}
+                <article style="border: 1px solid #ddd; padding: 15px; width: 250px;">
+                    <h3>{{ tecnologia.nome }}</h3>
+                    
+                    {% if tecnologia.logo %}
+                        <figure>
+                            <img src="{{ tecnologia.logo.url }}" alt="Logo de {{ tecnologia.nome }}" style="max-width: 100px;">
+                        </figure>
+                    {% endif %}
+                    
+                    <p>{{ tecnologia.descricao }}</p>
+                    <p><strong>Nível de Interesse:</strong> {{ tecnologia.nivel_interesse }}/5</p>
+                    
+                    {% if tecnologia.url_oficial %}
+                        <p><a href="{{ tecnologia.url_oficial }}" target="_blank">Site Oficial</a></p>
+                    {% endif %}
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Ainda não foram registadas tecnologias.</p>
+    {% endif %}
+</section>
+{% endblock %}
