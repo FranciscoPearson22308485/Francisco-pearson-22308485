@@ -1,0 +1,27 @@
+{% extends 'escola_online/base.html' %}
+
+{% block content %}
+<section>
+    <h2>Alunos</h2>
+    
+    {% if alunos %}
+        {% for aluno in alunos %}
+            <article style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+                <h3>{{ aluno.nome }}</h3>
+                <p><strong>Número:</strong> {{ aluno.numero }}</p>
+                
+                <h4>Cursos Inscritos:</h4>
+                <ul>
+                    {% for curso in aluno.cursos.all %}
+                        <li>{{ curso.nome }}</li>
+                    {% empty %}
+                        <li>Não está inscrito em nenhum curso.</li>
+                    {% endfor %}
+                </ul>
+            </article>
+        {% endfor %}
+    {% else %}
+        <p>Não existem alunos registados.</p>
+    {% endif %}
+</section>
+{% endblock content %}
