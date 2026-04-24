@@ -1,0 +1,27 @@
+{% extends 'escola_online/base.html' %}
+
+{% block content %}
+<section>
+    <h2>Professores</h2>
+    
+    {% if professores %}
+        {% for professor in professores %}
+            <article style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+                <h3>{{ professor.nome }}</h3>
+                <p><strong>Email:</strong> {{ professor.email }}</p>
+                
+                <h4>Cursos Lecionados:</h4>
+                <ul>
+                    {% for curso in professor.cursos.all %}
+                        <li>{{ curso.nome }}</li>
+                    {% empty %}
+                        <li>Não leciona nenhum curso atualmente.</li>
+                    {% endfor %}
+                </ul>
+            </article>
+        {% endfor %}
+    {% else %}
+        <p>Não existem professores registados.</p>
+    {% endif %}
+</section>
+{% endblock content %}

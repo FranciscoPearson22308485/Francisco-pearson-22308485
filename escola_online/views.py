@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from .models import Curso
+from .models import Curso, Professor
 
 def cursos_view(request):
-    # AVISO: select_related e prefetch_related obrigatórios para a nota máxima!
     cursos = Curso.objects.select_related('professor').prefetch_related('alunos').all()
     return render(request, 'escola_online/cursos.html', {'cursos': cursos})
+
+def professores_view(request):
+    professores = Professor.objects.prefetch_related('cursos').all()
+    return render(request, 'escola_online/professores.html', {'professores': professores})

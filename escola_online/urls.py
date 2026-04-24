@@ -5,4 +5,5 @@ app_name = 'escola_online'
 
 urlpatterns = [
     path('cursos/', views.cursos_view, name='cursos'),
+    path('professores/', views.professores_view, name='professores'),
 ]
