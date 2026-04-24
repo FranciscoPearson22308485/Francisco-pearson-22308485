@@ -1,36 +1,32 @@
-{% extends 'escola_online/base.html' %}
+{% extends "escola_online/base.html" %}
 
 {% block content %}
-<article>
-    <header>
-        <h2>Curso: {{ curso.nome }}</h2>
-    </header>
+<h2>Detalhes do Curso</h2>
 
-    {% if curso.imagem %}
-        <figure>
-            <img src="{{ curso.imagem.url }}" alt="Logótipo de {{ curso.nome }}" width="300">
-            <figcaption>Logótipo oficial do curso</figcaption>
-        </figure>
-    {% endif %}
+<section>
+    <article>
+        <header>
+            <h3>{{ curso.nome }}</h3>
+            {% if curso.imagem %}
+                <img src="{{ curso.imagem.url }}" alt="Imagem do logotipo {{ curso.nome }}" style="max-height: 120px; margin-bottom: 10px;">
+            {% endif %}
+            <p>Professor: {{ curso.professor.nome }}</p>
+        </header>
+        
+        <section>
+            <h4>Alunos</h4>
+            <ul>
+                {% for aluno in curso.alunos.all %}
+                    <li>{{ aluno.nome }}</li>
+                {% empty %}
+                    <li style="background: #9ca3af;">Sem alunos inscritos</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </article>
+</section>
 
-    <section>
-        <h3>Informação Geral</h3>
-        <p><strong>Professor Responsável:</strong> {{ curso.professor.nome }} ({{ curso.professor.email }})</p>
-    </section>
-
-    <section>
-        <h3>Alunos Inscritos</h3>
-        <ul>
-            {% for aluno in curso.alunos.all %}
-                <li>{{ aluno.nome }} - Nº {{ aluno.numero }}</li>
-            {% empty %}
-                <li>Ainda não existem alunos inscritos neste curso.</li>
-            {% endfor %}
-        </ul>
-    </section>
-
-    <nav>
-        <p><a href="{% url 'escola_online:cursos' %}">← Voltar à lista de cursos</a></p>
-    </nav>
-</article>
-{% endblock content %}
+<div style="margin-top: 20px;">
+    <a href="{% url 'escola_online:cursos' %}" style="color: #2563eb; font-weight: 500; text-decoration: none;">&larr; Voltar aos cursos</a>
+</div>
+{% endblock %}
