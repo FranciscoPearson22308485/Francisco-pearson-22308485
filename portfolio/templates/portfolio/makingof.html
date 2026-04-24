@@ -1,0 +1,37 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<section>
+    <h2>Making Of - Diário de Desenvolvimento</h2>
+    {% if entradas %}
+        {% for entrada in entradas %}
+            <article style="border-left: 4px solid #28a745; padding-left: 20px; margin-bottom: 30px;">
+                <header>
+                    <h3>{{ entrada.titulo }}</h3>
+                    <p><small>📅 {{ entrada.data|date:"d/m/Y" }} | <strong>Tipo:</strong> {{ entrada.get_tipo_display }}</small></p>
+                </header>
+                
+                <div style="background: #f9f9f9; padding: 15px; border-radius: 5px;">
+                    {{ entrada.descricao|linebreaks }}
+                </div>
+
+                {% if entrada.foto %}
+                    <figure style="margin-top: 15px;">
+                        <img src="{{ entrada.foto.url }}" alt="Imagem de {{ entrada.titulo }}" style="max-width: 100%; border: 1px solid #ccc;">
+                    </figure>
+                {% endif %}
+
+                <p style="margin-top: 10px;">
+                    <strong>Relacionado com:</strong> 
+                    {% if entrada.uc %} UC: {{ entrada.uc.nome }} 
+                    {% elif entrada.projeto %} Projeto: {{ entrada.projeto.titulo }}
+                    {% else %} {{ entrada.entidade_relacionada }}
+                    {% endif %}
+                </p>
+            </article>
+        {% endfor %}
+    {% else %}
+        <p>Ainda não há notas de desenvolvimento.</p>
+    {% endif %}
+</section>
+{% endblock %}

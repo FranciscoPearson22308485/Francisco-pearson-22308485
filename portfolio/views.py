@@ -1,6 +1,13 @@
 from django.shortcuts import render
-from .models import Tecnologia, UnidadeCurricular, Projeto, TFC, Competencia, Formacao
+from .models import Tecnologia, UnidadeCurricular, Projeto, TFC, Competencia, Formacao, Interesse, MakingOf
 
+def interesses_view(request):
+    interesses = Interesse.objects.all()
+    return render(request, 'portfolio/interesses.html', {'interesses': interesses})
+
+def makingof_view(request):
+    entradas = MakingOf.objects.select_related('uc', 'projeto').all()
+    return render(request, 'portfolio/makingof.html', {'entradas': entradas})
 def competencias_view(request):
     competencias = Competencia.objects.prefetch_related('tecnologias', 'projetos').all()
     return render(request, 'portfolio/competencias.html', {'competencias': competencias})

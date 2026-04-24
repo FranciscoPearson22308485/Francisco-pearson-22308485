@@ -1,0 +1,21 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<section>
+    <h2>Interesses e Hobbies</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+        {% for interesse in interesses %}
+            <article style="border: 1px solid #ddd; padding: 15px; border-radius: 10px; width: 300px; background-color: #fafafa;">
+                <h3>{{ interesse.nome }}</h3>
+                <p><strong>Categoria:</strong> {{ interesse.get_categoria_display }}</p>
+                <p>{{ interesse.descricao }}</p>
+                {% if interesse.url %}
+                    <p><a href="{{ interesse.url }}" target="_blank">Saber mais</a></p>
+                {% endif %}
+            </article>
+        {% empty %}
+            <p>Nenhum interesse registado.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
