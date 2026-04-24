@@ -13,16 +13,18 @@
                 <li><a href="{% url 'portfolio:home' %}">Home</a></li>
                 <li><a href="{% url 'portfolio:tecnologias' %}">Tecnologias</a></li>
                 <li><a href="{% url 'portfolio:ucs' %}">Unidades Curriculares</a></li>
+                <li><a href="{% url 'portfolio:projetos' %}">Projetos</a></li>
+                <li><a href="{% url 'portfolio:tfcs' %}">TFCs</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
+    <main style="padding: 20px;">
         {% block content %}
         {% endblock %}
     </main>
 
-    <footer>
+    <footer style="margin-top: 40px; border-top: 1px solid #ccc; padding-top: 10px;">
         <p>&copy; 2026 Francisco Pearson (22308485) - Engenharia Informática e Gestão</p>
     </footer>
 </body>

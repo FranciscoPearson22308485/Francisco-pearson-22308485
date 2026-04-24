@@ -1,0 +1,30 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<section>
+    <h2>Projetos Desenvolvidos</h2>
+    {% if projetos %}
+        {% for projeto in projetos %}
+            <article style="border: 1px solid #ccc; margin-bottom: 20px; padding: 15px;">
+                <h3>{{ projeto.titulo }}</h3>
+                {% if projeto.imagem %}
+                    <img src="{{ projeto.imagem.url }}" alt="{{ projeto.titulo }}" width="300">
+                {% endif %}
+                <p>{{ projeto.descricao }}</p>
+                <p><strong>UC:</strong> {{ projeto.uc.nome|default:"Projeto Independente" }}</p>
+                <p><strong>Tecnologias:</strong> 
+                    {% for tech in projeto.tecnologias.all %}
+                        {{ tech.nome }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                <nav>
+                    {% if projeto.url_github %}<a href="{{ projeto.url_github }}">GitHub</a> | {% endif %}
+                    {% if projeto.url_demo %}<a href="{{ projeto.url_demo }}">Demo</a>{% endif %}
+                </nav>
+            </article>
+        {% endfor %}
+    {% else %}
+        <p>Ainda não há projetos registados.</p>
+    {% endif %}
+</section>
+{% endblock %}

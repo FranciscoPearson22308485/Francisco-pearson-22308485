@@ -1,0 +1,38 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<section>
+    <h2>Trabalhos de Fim de Curso (TFC)</h2>
+    
+    {% if tfcs %}
+        {% for tfc in tfcs %}
+            <article style="border: 1px solid #ddd; padding: 20px; margin-bottom: 20px; border-left: 5px solid #0056b3;">
+                <h3>{{ tfc.titulo }}</h3>
+                <p><strong>Autor:</strong> {{ tfc.autor }} | <strong>Ano:</strong> {{ tfc.ano }}</p>
+                <p><strong>Orientador:</strong> {{ tfc.orientador }}</p>
+                
+                <div style="margin: 15px 0;">
+                    <strong>Resumo:</strong>
+                    <p style="text-align: justify; font-style: italic;">{{ tfc.resumo }}</p>
+                </div>
+
+                <p><strong>Área:</strong> {{ tfc.area }}</p>
+                
+                <p><strong>Tecnologias Envolvidas:</strong>
+                    {% for tech in tfc.tecnologias.all %}
+                        <span style="background: #e9ecef; padding: 2px 8px; border-radius: 4px; font-size: 0.9em;">{{ tech.nome }}</span>
+                    {% empty %}
+                        <small>Nenhuma tecnologia especificada.</small>
+                    {% endfor %}
+                </p>
+
+                {% if tfc.url %}
+                    <p><a href="{{ tfc.url }}" target="_blank">🔗 Ver documento/repositório</a></p>
+                {% endif %}
+            </article>
+        {% endfor %}
+    {% else %}
+        <p>Não existem TFCs registados na base de dados.</p>
+    {% endif %}
+</section>
+{% endblock %}
