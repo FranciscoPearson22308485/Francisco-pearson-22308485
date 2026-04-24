@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escola Online</title>
+</head>
+<body>
+
+    <header>
+        <h1>Bem-vindo à Escola Online</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'escola_online:cursos' %}">Ver Cursos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Escola Online - Francisco Pearson</p>
+    </footer>
+
+</body>
+</html>

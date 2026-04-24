@@ -1,0 +1,32 @@
+{% extends 'escola_online/base.html' %}
+
+{% block content %}
+<section>
+    <h2>Cursos Disponíveis</h2>
+    
+    {% if cursos %}
+        {% for curso in cursos %}
+            <article style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+                <h3>{{ curso.nome }}</h3>
+                
+                {% if curso.imagem %}
+                    <img src="{{ curso.imagem.url }}" alt="{{ curso.nome }}" width="200">
+                {% endif %}
+
+                <p><strong>Professor:</strong> {{ curso.professor.nome }}</p>
+
+                <h4>Alunos Inscritos:</h4>
+                <ul>
+                    {% for aluno in curso.alunos.all %}
+                        <li>{{ aluno.nome }} ({{ aluno.numero }})</li>
+                    {% empty %}
+                        <li>Nenhum aluno inscrito.</li>
+                    {% endfor %}
+                </ul>
+            </article>
+        {% endfor %}
+    {% else %}
+        <p>Não existem cursos registados.</p>
+    {% endif %}
+</section>
+{% endblock content %}
