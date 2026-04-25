@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     "festivais",
     "portfolio",
     "escola_online",
+    # --- APLICAÇÕES EXTERNAS ---
+    "markdownify.apps.MarkdownifyConfig", # <-- Markdownify adicionado aqui!
 ]
 
 MIDDLEWARE = [
@@ -129,3 +131,21 @@ STATIC_URL = "static/"
 # --- CONFIGURAÇÕES DE MEDIA (Imagens e Ficheiros) ---
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# --- CONFIGURAÇÕES DO MARKDOWNIFY ---
+MARKDOWNIFY = {
+   "default": {
+      "WHITELIST_TAGS": [
+        'a', 'abbr', 'acronym', 
+        'strong', 'b',
+        'blockquote', 'em', 'i',
+        'ul', 'li', 'ol',
+        'p',
+        'h1', 'h2', 'h3', 'h4',
+      ]
+   },
+   "alternative": {
+      "WHITELIST_TAGS": ["a", "p"],
+      "MARKDOWN_EXTENSIONS": ["markdown.extensions.fenced_code", ]
+   }
+}

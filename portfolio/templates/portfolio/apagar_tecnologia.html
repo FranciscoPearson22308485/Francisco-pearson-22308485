@@ -1,0 +1,26 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 60px auto; background: #fef2f2; padding: 30px; border-radius: 12px; border: 1px solid #fca5a5; text-align: center;">
+    
+    <h2 style="color: #991b1b; margin-bottom: 15px;">Atenção!</h2>
+    
+    <p style="font-size: 16px; color: #7f1d1d; margin-bottom: 25px;">
+        Tens a certeza que queres apagar a tecnologia <strong>"{{ tecnologia.titulo }}"</strong>?<br>
+        Esta ação não pode ser desfeita.
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <div style="display: flex; justify-content: center; gap: 15px;">
+            <a href="{% url 'portfolio:projetos' %}" style="padding: 10px 20px; color: #4b5563; text-decoration: none; border: 1px solid #d1d5db; border-radius: 6px; background: white;">
+                Cancelar
+            </a>
+            <button type="submit" style="background: #dc2626; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer;">
+                Sim, Quero Apagar
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

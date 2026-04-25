@@ -1,0 +1,29 @@
+{% extends 'portfolio/base.html' %} 
+{% block content %}
+<div style="max-width: 600px; margin: 40px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+    
+    <h2 style="color: #1f2937; margin-bottom: 20px;">
+        {% if tecnologia %}
+            Editar Tecnologia: {{ tecnologia.titulo }}
+        {% else %}
+            Adicionar Novo Tecnologia
+        {% endif %}
+    </h2>
+
+    <form method="POST" action="" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 15px;">
+        
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+
+        <div style="margin-top: 20px; display: flex; gap: 10px;">
+            <button type="submit" style="background: #2563eb; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer;">
+                Guardar Tecnologia
+            </button>
+            <a href="{% url 'portfolio:projetos' %}" style="padding: 10px 20px; color: #4b5563; text-decoration: none; border: 1px solid #d1d5db; border-radius: 6px;">
+                Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

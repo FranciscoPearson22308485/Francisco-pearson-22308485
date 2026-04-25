@@ -1,0 +1,13 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+    {% load markdownify %}
+
+    <section style="max-width: 800px; margin: 40px auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+        
+        <div class="markdown-content">
+            {{ texto|markdownify }}
+        </div>
+        
+    </section>
+{% endblock %}

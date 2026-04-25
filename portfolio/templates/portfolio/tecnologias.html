@@ -4,24 +4,32 @@
 <section>
     <h2>Tecnologias</h2>
     
+    <a href="{% url 'portfolio:nova_tecnologia' %}" style="display: inline-block; background: #10b981; color: white; padding: 10px 15px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-bottom: 20px;">
+        + Adicionar Tecnologia
+    </a>
+
     {% if tecnologias %}
         <div style="display: flex; flex-wrap: wrap; gap: 20px;">
             {% for tecnologia in tecnologias %}
-                <article style="border: 1px solid #ddd; padding: 15px; width: 250px;">
+                <article style="border: 1px solid #ddd; padding: 15px; width: 250px; border-radius: 8px; display: flex; flex-direction: column;">
                     <h3>{{ tecnologia.nome }}</h3>
                     
                     {% if tecnologia.logo %}
-                        <figure>
+                        <figure style="margin: 10px 0;">
                             <img src="{{ tecnologia.logo.url }}" alt="Logo de {{ tecnologia.nome }}" style="max-width: 100px;">
                         </figure>
                     {% endif %}
                     
-                    <p>{{ tecnologia.descricao }}</p>
-                    <p><strong>Nível de Interesse:</strong> {{ tecnologia.nivel_interesse }}/5</p>
+                    <p style="flex-grow: 1;">{{ tecnologia.descricao }}</p> <p><strong>Nível de Interesse:</strong> {{ tecnologia.nivel_interesse }}/5</p>
                     
                     {% if tecnologia.url_oficial %}
                         <p><a href="{{ tecnologia.url_oficial }}" target="_blank">Site Oficial</a></p>
                     {% endif %}
+
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                        <a href="{% url 'portfolio:editar_tecnologia' tecnologia.id %}" style="color: #2563eb; text-decoration: none; margin-right: 15px; font-weight: 500;">✏️ Editar</a>
+                        <a href="{% url 'portfolio:apagar_tecnologia' tecnologia.id %}" style="color: #dc2626; text-decoration: none; font-weight: 500;">🗑️ Apagar</a>
+                    </div>
                 </article>
             {% endfor %}
         </div>
