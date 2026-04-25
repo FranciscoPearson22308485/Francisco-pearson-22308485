@@ -1,0 +1,14 @@
+{% extends 'portfolio/base.html' %}
+{% block content %}
+<div style="max-width: 500px; margin: 60px auto; background: #fef2f2; padding: 30px; border-radius: 12px; border: 1px solid #fca5a5; text-align: center;">
+    <h2 style="color: #991b1b;">Apagar Competência</h2>
+    <p>Tens a certeza que queres apagar <strong>"{{ competencia.nome }}"</strong>?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <div style="display: flex; justify-content: center; gap: 15px; margin-top: 20px;">
+            <a href="{% url 'portfolio:competencias' %}" style="padding: 10px 20px; background: white; border: 1px solid #d1d5db; border-radius: 6px; text-decoration: none; color: #4b5563;">Cancelar</a>
+            <button type="submit" style="background: #dc2626; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer;">Confirmar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
