@@ -1,13 +1,16 @@
 {% extends 'portfolio/base.html' %}
+{% load markdownify %}
 
 {% block content %}
-    {% load markdownify %}
-
-    <section style="max-width: 800px; margin: 40px auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+<section>
+    <h2 style="font-size: 1.5rem; color: #0f172a; margin-top: 0; margin-bottom: 20px;">Sobre</h2>
+    
+    <div style="background: white; border-radius: 12px; padding: 30px 40px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); width: 100%; box-sizing: border-box;">
         
-        <div class="markdown-content">
+        <div style="line-height: 1.7; color: #334155; font-size: 1.05rem;">
             {{ texto|markdownify }}
         </div>
         
-    </section>
+    </div>
+</section>
 {% endblock %}

@@ -4,10 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfólio - Francisco Pearson</title>
+    <style>
+        /* Fonte limpa e fundo moderno */
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f1f5f9; /* Fundo cinzento claro */
+            color: #334155;
+        }
+
+        /* Cabeçalho Escuro (Dark Blue/Slate) */
+        header {
+            background-color: #1e293b;
+            color: white;
+            padding: 15px 40px;
+        }
+
+        header h1 {
+            margin: 0 0 15px 0;
+            font-size: 1.5rem;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        /* Menu de Navegação Horizontal */
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        /* Área de Conteúdo Principal */
+        main {
+            padding: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Rodapé Discreto */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-top: 40px;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Francisco Pearson - Portfólio</h1>
+        <h1>Francisco Pearson</h1>
         <nav>
             <ul>
                 <li><a href="{% url 'portfolio:home' %}">Home</a></li>
@@ -19,17 +80,17 @@
                 <li><a href="{% url 'portfolio:formacoes' %}">Formações</a></li>
                 <li><a href="{% url 'portfolio:interesses' %}">Interesses</a></li>
                 <li><a href="{% url 'portfolio:makingof' %}">Making Of</a></li>
-                <li><a href="{% url 'portfolio:sobre' %}">Sobre</a></li>
+                <li><a style="color: white; font-weight: bold;" href="{% url 'portfolio:sobre' %}">Sobre</a></li>
             </ul>
         </nav>
     </header>
 
-    <main style="padding: 20px;">
+    <main>
         {% block content %}
         {% endblock %}
     </main>
 
-    <footer style="margin-top: 40px; border-top: 1px solid #ccc; padding-top: 10px;">
+    <footer>
         <p>&copy; 2026 Francisco Pearson (22308485) - Engenharia Informática e Gestão</p>
     </footer>
 </body>
