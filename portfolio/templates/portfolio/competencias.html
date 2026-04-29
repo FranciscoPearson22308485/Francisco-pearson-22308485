@@ -3,7 +3,11 @@
 {% block content %}
 <section>
     <h2>Competências</h2>
-    
+
+    <a href="{% url 'portfolio:nova_competencia' %}" style="display: inline-block; background: #10b981; color: white; padding: 10px 15px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-bottom: 20px;">
+        + Adicionar Competência
+    </a>
+
     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
         {% for competencia in competencias %}
             <article style="border: 1px solid #eee; padding: 15px; border-radius: 8px; box-shadow: 2px 2px 5px rgba(0,0,0,0.05);">
@@ -11,7 +15,7 @@
                 <p><strong>Tipo:</strong> {{ competencia.get_tipo_display }}</p>
                 <p><strong>Nível:</strong> {{ competencia.get_nivel_display }}</p>
                 <p>{{ competencia.descricao }}</p>
-                
+
                 {% if competencia.tecnologias.all %}
                 <p><strong>Tecnologias Relacionadas:</strong><br>
                     {% for tech in competencia.tecnologias.all %}
@@ -19,6 +23,11 @@
                     {% endfor %}
                 </p>
                 {% endif %}
+
+                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                    <a href="{% url 'portfolio:editar_competencia' competencia.id %}" style="color: #2563eb; text-decoration: none; margin-right: 15px; font-weight: 500;">✏️ Editar</a>
+                    <a href="{% url 'portfolio:apagar_competencia' competencia.id %}" style="color: #dc2626; text-decoration: none; font-weight: 500;">🗑️ Apagar</a>
+                </div>
             </article>
         {% empty %}
             <p>Ainda não foram registadas competências.</p>

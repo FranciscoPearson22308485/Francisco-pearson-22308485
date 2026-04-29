@@ -2,15 +2,278 @@
 {% load markdownify %}
 
 {% block content %}
-<section>
-    <h2 style="font-size: 1.5rem; color: #0f172a; margin-top: 0; margin-bottom: 20px;">Sobre</h2>
-    
-    <div style="background: white; border-radius: 12px; padding: 30px 40px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); width: 100%; box-sizing: border-box;">
-        
-        <div style="line-height: 1.7; color: #334155; font-size: 1.05rem;">
+<style>
+    .sobre-section {
+        background: white;
+        border-radius: 12px;
+        padding: 30px 40px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        margin-bottom: 25px;
+    }
+    .sobre-section h3 {
+        color: #1e293b;
+        border-bottom: 3px solid #2563eb;
+        padding-bottom: 8px;
+        margin-top: 0;
+    }
+    .sobre-section h4 {
+        color: #334155;
+        margin-top: 20px;
+    }
+    .placeholder-foto {
+        background: #f1f5f9;
+        border: 2px dashed #cbd5e1;
+        padding: 40px;
+        text-align: center;
+        color: #64748b;
+        border-radius: 8px;
+        margin: 15px 0;
+    }
+    .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 15px;
+        margin-top: 15px;
+    }
+    .tech-card {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 15px;
+    }
+    .tech-card h5 {
+        margin: 0 0 8px 0;
+        color: #0f172a;
+    }
+    .tipo-badge {
+        display: inline-block;
+        background: #dbeafe;
+        color: #1e40af;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 20px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+    .video-wrapper {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        border-radius: 8px;
+        margin: 15px 0;
+    }
+    .video-wrapper iframe {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+</style>
+
+<h2 style="font-size: 1.8rem; color: #0f172a; margin-bottom: 25px;">Sobre esta Aplicação</h2>
+
+<!-- ============================================ -->
+<!-- 1. ARQUITETURA MVT -->
+<!-- ============================================ -->
+<div class="sobre-section">
+    <h3>1. Arquitetura MVT do Django</h3>
+
+    <h4>Desenho da arquitetura (em papel)</h4>
+    <div class="placeholder-foto">
+        📷 Substitui isto pela foto do teu desenho.<br>
+        Faz upload em <strong>media/sobre/</strong> e usa:<br>
+        <code>&lt;img src="/media/sobre/arquitetura.jpg" style="max-width:100%; border-radius:8px;"&gt;</code>
+    </div>
+
+    <h4>Componentes e fluxos</h4>
+    <p>A arquitetura <strong>MVT (Model-View-Template)</strong> do Django funciona assim:</p>
+    <ul>
+        <li><strong>Model</strong> — define a estrutura dos dados (em <code>models.py</code>). Cada classe é uma tabela na base de dados SQLite.</li>
+        <li><strong>View</strong> — função em <code>views.py</code> que recebe um pedido HTTP, vai buscar dados ao Model, e devolve uma resposta.</li>
+        <li><strong>Template</strong> — ficheiro HTML em <code>templates/</code> que recebe os dados da View e produz a página final que o utilizador vê.</li>
+    </ul>
+
+    <p><strong>Fluxo de informação:</strong></p>
+    <ol>
+        <li>O utilizador clica num link no browser (ex: <em>/portfolio/projetos/</em>)</li>
+        <li>O <code>urls.py</code> faz o <em>routing</em> e mapeia esse caminho para a função <code>projetos_view</code></li>
+        <li>A View consulta o Model (<code>Projeto.objects.all()</code>) e busca os dados</li>
+        <li>A View passa os dados ao Template (<code>projetos.html</code>) com <code>render()</code></li>
+        <li>O Template é renderizado em HTML e devolvido ao browser</li>
+    </ol>
+
+    <h4>Vídeo-tutorial: criação de página com formulário</h4>
+    <div class="video-wrapper">
+        <!-- SUBSTITUI VIDEO_ID pelo ID do teu vídeo do YouTube -->
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID"
+                title="Tutorial: Criar novo projeto com formulário em Django"
+                allowfullscreen></iframe>
+    </div>
+    <p><small>💡 Quando gravares e fizeres upload no YouTube, copia o ID do vídeo (a parte depois de <code>v=</code>) e cola em vez de <code>VIDEO_ID</code>.</small></p>
+</div>
+
+<!-- ============================================ -->
+<!-- 2. MODELAÇÃO -->
+<!-- ============================================ -->
+<div class="sobre-section">
+    <h3>2. Modelação</h3>
+
+    <h4>Diagrama Entidade-Relação (em papel)</h4>
+    <div class="placeholder-foto">
+        📷 Substitui isto pela foto do teu DER.<br>
+        <code>&lt;img src="/media/sobre/der.jpg" style="max-width:100%; border-radius:8px;"&gt;</code>
+    </div>
+
+    <h4>Modelação em <code>models.py</code></h4>
+    <pre><code>class Licenciatura(models.Model):
+    nome = CharField, sigla = CharField, instituicao = CharField
+    ano_inicio = IntegerField, duracao_anos = IntegerField
+
+class Docente(models.Model):
+    nome, email, url_pagina_lusofona, foto
+
+class UnidadeCurricular(models.Model):
+    nome, sigla, ano_curricular, semestre, ects, imagem
+    licenciatura → ForeignKey(Licenciatura)
+    docentes → ManyToMany(Docente)
+
+class Tecnologia(models.Model):
+    nome, descricao, logo, url_oficial, categoria, nivel_interesse
+    tipo → ForeignKey(TipoTecnologia)   # NOVO (Ficha 8)
+
+class TipoTecnologia(models.Model):    # NOVO (Ficha 8)
+    nome, descricao
+    # Frontend, Backend, Base de Dados, Storage, Outros
+
+class Projeto(models.Model):
+    titulo, descricao, data_inicio, data_fim, imagem
+    url_github, url_demo, conceitos_uc
+    uc → ForeignKey(UnidadeCurricular)
+    tecnologias → ManyToMany(Tecnologia)
+
+class TFC(models.Model):
+    titulo, autor, orientador, ano, resumo, url, area, destacado
+    tecnologias → ManyToMany(Tecnologia)
+
+class Competencia(models.Model):
+    nome, descricao, nivel, tipo
+    tecnologias → ManyToMany(Tecnologia)
+    projetos → ManyToMany(Projeto)
+
+class Formacao(models.Model):
+    titulo, instituicao, data_inicio, data_conclusao
+    certificado, url, tipo
+    tecnologias → ManyToMany(Tecnologia)
+
+class Interesse(models.Model):
+    nome, descricao, categoria, url
+
+class MakingOf(models.Model):
+    titulo, data, descricao, foto, tipo, entidade_relacionada
+    uc → ForeignKey(UnidadeCurricular)
+    projeto → ForeignKey(Projeto)</code></pre>
+
+    <h4>Versão visual (gerada com IA)</h4>
+    <div class="placeholder-foto">
+        📷 Aqui podes incluir um diagrama gerado pelo Mermaid, dbdiagram.io ou Claude.<br>
+        Sugestão: pede ao Claude para gerar um diagrama Mermaid a partir do teu models.py.
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 3. TECNOLOGIAS -->
+<!-- ============================================ -->
+<div class="sobre-section">
+    <h3>3. Tecnologias</h3>
+
+    <p>Lista de tecnologias usadas neste projeto, organizadas por tipo (Frontend / Backend / Base de Dados / Storage / Outros).</p>
+
+    {% if tecnologias_por_tipo %}
+        {% for tipo, techs in tecnologias_por_tipo.items %}
+            <h4>{{ tipo }}</h4>
+            <div class="tech-grid">
+                {% for tech in techs %}
+                    <div class="tech-card">
+                        <h5>{{ tech.nome }}</h5>
+                        <span class="tipo-badge">{{ tech.get_categoria_display }}</span>
+                        <p style="margin: 10px 0 0 0; font-size: 0.9rem;">{{ tech.descricao|default:"Sem descrição." }}</p>
+                        {% if tech.url_oficial %}
+                            <a href="{{ tech.url_oficial }}" target="_blank" style="font-size: 0.85rem;">Site oficial →</a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p><em>⚠️ Para esta secção funcionar, atualiza a view <code>sobre_view</code> em <code>views.py</code> (ver instruções no fundo da página) e adiciona o campo <code>tipo</code> ao modelo Tecnologia.</em></p>
+    {% endif %}
+</div>
+
+<!-- ============================================ -->
+<!-- 4. ESTRUTURA DAS PÁGINAS -->
+<!-- ============================================ -->
+<div class="sobre-section">
+    <h3>4. Estrutura de Navegação</h3>
+    <div class="placeholder-foto">
+        📷 Foto do mapa de navegação que desenhaste em papel.<br>
+        Sugestão de estrutura:<br><br>
+        <strong>Home</strong> → Tecnologias / UCs / Projetos / TFCs / Competências / Formações / Interesses / Making-Of / Sobre<br>
+        Cada página de listagem → CRUD (novo / editar / apagar)
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 5. REPOSITÓRIO GITHUB -->
+<!-- ============================================ -->
+<div class="sobre-section">
+    <h3>5. Repositório GitHub</h3>
+    <p>
+        🔗 <a href="https://github.com/SEU_USERNAME/Francisco-pearson-22308485" target="_blank" style="font-weight: bold;">
+            github.com/SEU_USERNAME/Francisco-pearson-22308485
+        </a>
+        <br><small>(substitui pelo teu URL real)</small>
+    </p>
+
+    <p>O Git e GitHub trazem várias vantagens ao desenvolvimento:</p>
+    <ul>
+        <li><strong>Versionamento</strong> — cada commit guarda o estado do projeto, permitindo voltar atrás se algo correr mal.</li>
+        <li><strong>Backup na cloud</strong> — o código nunca se perde mesmo que o portátil avarie.</li>
+        <li><strong>Colaboração</strong> — possibilidade de trabalhar em equipa via branches e pull requests.</li>
+        <li><strong>Portfolio público</strong> — recrutadores podem ver o histórico de commits, o que demonstra ritmo de trabalho.</li>
+        <li><strong>Integração com Codespaces</strong> — abre um ambiente Linux pronto a correr Django diretamente do browser.</li>
+    </ul>
+</div>
+
+<!-- ============================================ -->
+<!-- 6. MAKING-OF -->
+<!-- ============================================ -->
+<div class="sobre-section">
+    <h3>6. Making-Of</h3>
+    <p>O <strong>Making-Of</strong> é o diário de desenvolvimento do projeto: justificações de modelação, erros encontrados, decisões tomadas, evolução do modelo, e uso de IA.</p>
+
+    <p>
+        <a href="{% url 'portfolio:makingof' %}" style="display: inline-block; background: #2563eb; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+            Ver Making-Of completo →
+        </a>
+    </p>
+
+    {% if texto %}
+        <h4>Notas em Markdown (renderizado com markdownify)</h4>
+        <div style="background: #f8fafc; padding: 20px; border-radius: 8px; line-height: 1.7;">
             {{ texto|markdownify }}
         </div>
-        
-    </div>
-</section>
+    {% endif %}
+</div>
+
 {% endblock %}

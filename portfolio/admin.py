@@ -20,8 +20,8 @@ class UCAdmin(admin.ModelAdmin):
 
 @admin.register(Tecnologia)
 class TecnologiaAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'categoria', 'nivel_interesse')
-    list_filter = ('categoria', 'nivel_interesse')
+    list_display = ('nome', 'tipo', 'nivel_interesse')
+    list_filter = ('tipo', 'nivel_interesse')
     search_fields = ('nome',)
 
 @admin.register(Projeto)
