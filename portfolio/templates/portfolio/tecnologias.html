@@ -4,9 +4,11 @@
 <section>
     <h2>Tecnologias</h2>
     
+    {% if perms.portfolio.add_tecnologia %}
     <a href="{% url 'portfolio:nova_tecnologia' %}" style="display: inline-block; background: #10b981; color: white; padding: 10px 15px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-bottom: 20px;">
         + Adicionar Tecnologia
     </a>
+    {% endif %}
 
     {% if tecnologias %}
         <div style="display: flex; flex-wrap: wrap; gap: 20px;">
@@ -20,16 +22,24 @@
                         </figure>
                     {% endif %}
                     
-                    <p style="flex-grow: 1;">{{ tecnologia.descricao }}</p> <p><strong>Nível de Interesse:</strong> {{ tecnologia.nivel_interesse }}/5</p>
+                    <p style="flex-grow: 1;">{{ tecnologia.descricao }}</p>
+                    <p><strong>Nível de Interesse:</strong> {{ tecnologia.nivel_interesse }}/5</p>
                     
                     {% if tecnologia.url_oficial %}
                         <p><a href="{{ tecnologia.url_oficial }}" target="_blank">Site Oficial</a></p>
                     {% endif %}
 
+                    {% if perms.portfolio.change_tecnologia or perms.portfolio.delete_tecnologia %}
                     <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
-                        <a href="{% url 'portfolio:editar_tecnologia' tecnologia.id %}" style="color: #2563eb; text-decoration: none; margin-right: 15px; font-weight: 500;">✏️ Editar</a>
-                        <a href="{% url 'portfolio:apagar_tecnologia' tecnologia.id %}" style="color: #dc2626; text-decoration: none; font-weight: 500;">🗑️ Apagar</a>
+                        {% if perms.portfolio.change_tecnologia %}
+                        <a href="{% url 'portfolio:editar_tecnologia' tecnologia.id %}" style="color: #2563eb; text-decoration: none; margin-right: 15px; font-weight: 500;">Editar</a>
+                        {% endif %}
+                        
+                        {% if perms.portfolio.delete_tecnologia %}
+                        <a href="{% url 'portfolio:apagar_tecnologia' tecnologia.id %}" style="color: #dc2626; text-decoration: none; font-weight: 500;">Apagar</a>
+                        {% endif %}
                     </div>
+                    {% endif %}
                 </article>
             {% endfor %}
         </div>

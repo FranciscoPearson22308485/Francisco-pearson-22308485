@@ -4,9 +4,11 @@
 <section>
     <h2>Competências</h2>
 
+    {% if perms.portfolio.add_competencia %}
     <a href="{% url 'portfolio:nova_competencia' %}" style="display: inline-block; background: #10b981; color: white; padding: 10px 15px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-bottom: 20px;">
         + Adicionar Competência
     </a>
+    {% endif %}
 
     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
         {% for competencia in competencias %}
@@ -24,10 +26,17 @@
                 </p>
                 {% endif %}
 
+                {% if perms.portfolio.change_competencia or perms.portfolio.delete_competencia %}
                 <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
-                    <a href="{% url 'portfolio:editar_competencia' competencia.id %}" style="color: #2563eb; text-decoration: none; margin-right: 15px; font-weight: 500;">✏️ Editar</a>
-                    <a href="{% url 'portfolio:apagar_competencia' competencia.id %}" style="color: #dc2626; text-decoration: none; font-weight: 500;">🗑️ Apagar</a>
+                    {% if perms.portfolio.change_competencia %}
+                    <a href="{% url 'portfolio:editar_competencia' competencia.id %}" style="color: #2563eb; text-decoration: none; margin-right: 15px; font-weight: 500;">Editar</a>
+                    {% endif %}
+                    
+                    {% if perms.portfolio.delete_competencia %}
+                    <a href="{% url 'portfolio:apagar_competencia' competencia.id %}" style="color: #dc2626; text-decoration: none; font-weight: 500;">Apagar</a>
+                    {% endif %}
                 </div>
+                {% endif %}
             </article>
         {% empty %}
             <p>Ainda não foram registadas competências.</p>

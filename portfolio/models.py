@@ -34,24 +34,19 @@ class UnidadeCurricular(models.Model):
     def __str__(self):
         return self.sigla
 
-# ==========================================
 # NOVA CLASSE: TIPO DE TECNOLOGIA
-# ==========================================
 class TipoTecnologia(models.Model):
     nome = models.CharField(max_length=100, help_text="Ex: Frontend, Backend, Base de Dados, Storage, Outros")
 
     def __str__(self):
         return self.nome
 
-# ==========================================
-# CLASSE: TECNOLOGIA (Atualizada)
-# ==========================================
+# CLASSE: TECNOLOGIA 
 class Tecnologia(models.Model):
     NIVEL_CHOICES = [(i, str(i)) for i in range(1, 6)]
 
     nome = models.CharField(max_length=100)
     
-    # O guião pede para garantir que a descrição fala sobre as vantagens/desvantagens
     descricao = models.TextField(
         blank=True, 
         help_text="O que faz, o que permite e aspetos que gostou ou não gostou."
@@ -61,7 +56,6 @@ class Tecnologia(models.Model):
     url_oficial = models.URLField(blank=True)
     nivel_interesse = models.IntegerField(choices=NIVEL_CHOICES, default=3)
     
-    # Substituímos o campo 'categoria' por esta Chave Estrangeira ligada à nova classe
     tipo = models.ForeignKey(
         TipoTecnologia, 
         on_delete=models.SET_NULL, 

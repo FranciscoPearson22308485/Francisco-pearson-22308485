@@ -4,9 +4,11 @@
 <section>
     <h2>Formação e Certificações</h2>
 
+    {% if perms.portfolio.add_formacao %}
     <a href="{% url 'portfolio:nova_formacao' %}" style="display: inline-block; background: #10b981; color: white; padding: 10px 15px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-bottom: 20px;">
         + Adicionar Formação
     </a>
+    {% endif %}
 
     {% if formacoes %}
         {% for formacao in formacoes %}
@@ -16,7 +18,7 @@
                     <p><strong>{{ formacao.instituicao }}</strong> | {{ formacao.get_tipo_display }}</p>
                 </header>
 
-                <p>📅 {{ formacao.data_inicio|date:"M Y" }} -
+                <p>{{ formacao.data_inicio|date:"M Y" }} -
                    {% if formacao.data_conclusao %}{{ formacao.data_conclusao|date:"M Y" }}{% else %}Presente{% endif %}
                 </p>
 
@@ -32,10 +34,17 @@
                     </p>
                 {% endif %}
 
+                {% if perms.portfolio.change_formacao or perms.portfolio.delete_formacao %}
                 <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
-                    <a href="{% url 'portfolio:editar_formacao' formacao.id %}" style="color: #2563eb; text-decoration: none; margin-right: 15px; font-weight: 500;">✏️ Editar</a>
-                    <a href="{% url 'portfolio:apagar_formacao' formacao.id %}" style="color: #dc2626; text-decoration: none; font-weight: 500;">🗑️ Apagar</a>
+                    {% if perms.portfolio.change_formacao %}
+                    <a href="{% url 'portfolio:editar_formacao' formacao.id %}" style="color: #2563eb; text-decoration: none; margin-right: 15px; font-weight: 500;">Editar</a>
+                    {% endif %}
+                    
+                    {% if perms.portfolio.delete_formacao %}
+                    <a href="{% url 'portfolio:apagar_formacao' formacao.id %}" style="color: #dc2626; text-decoration: none; font-weight: 500;">Apagar</a>
+                    {% endif %}
                 </div>
+                {% endif %}
             </article>
         {% endfor %}
     {% else %}

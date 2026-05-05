@@ -20,15 +20,6 @@
         color: #334155;
         margin-top: 20px;
     }
-    .placeholder-foto {
-        background: #f1f5f9;
-        border: 2px dashed #cbd5e1;
-        padding: 40px;
-        text-align: center;
-        color: #64748b;
-        border-radius: 8px;
-        margin: 15px 0;
-    }
     .tech-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -90,11 +81,7 @@
     <h3>1. Arquitetura MVT do Django</h3>
 
     <h4>Desenho da arquitetura (em papel)</h4>
-    <div class="placeholder-foto">
-        📷 Substitui isto pela foto do teu desenho.<br>
-        Faz upload em <strong>media/sobre/</strong> e usa:<br>
-        <code>&lt;img src="/media/sobre/arquitetura.jpg" style="max-width:100%; border-radius:8px;"&gt;</code>
-    </div>
+    <img src="/media/sobre/arquitetura.jpg" style="max-width:100%; border-radius:8px;" alt="Arquitetura MVT">
 
     <h4>Componentes e fluxos</h4>
     <p>A arquitetura <strong>MVT (Model-View-Template)</strong> do Django funciona assim:</p>
@@ -115,12 +102,10 @@
 
     <h4>Vídeo-tutorial: criação de página com formulário</h4>
     <div class="video-wrapper">
-        <!-- SUBSTITUI VIDEO_ID pelo ID do teu vídeo do YouTube -->
-        <iframe src="https://www.youtube.com/embed/VIDEO_ID"
+        <iframe src="https://www.youtube.com/embed/lDC9-jLyAfU"
                 title="Tutorial: Criar novo projeto com formulário em Django"
                 allowfullscreen></iframe>
     </div>
-    <p><small>💡 Quando gravares e fizeres upload no YouTube, copia o ID do vídeo (a parte depois de <code>v=</code>) e cola em vez de <code>VIDEO_ID</code>.</small></p>
 </div>
 
 <!-- ============================================ -->
@@ -130,10 +115,7 @@
     <h3>2. Modelação</h3>
 
     <h4>Diagrama Entidade-Relação (em papel)</h4>
-    <div class="placeholder-foto">
-        📷 Substitui isto pela foto do teu DER.<br>
-        <code>&lt;img src="/media/sobre/der.jpg" style="max-width:100%; border-radius:8px;"&gt;</code>
-    </div>
+    <img src="/media/sobre/der.jpg" style="max-width:100%; border-radius:8px;" alt="Diagrama ER">
 
     <h4>Modelação em <code>models.py</code></h4>
     <pre><code>class Licenciatura(models.Model):
@@ -183,12 +165,6 @@ class MakingOf(models.Model):
     titulo, data, descricao, foto, tipo, entidade_relacionada
     uc → ForeignKey(UnidadeCurricular)
     projeto → ForeignKey(Projeto)</code></pre>
-
-    <h4>Versão visual (gerada com IA)</h4>
-    <div class="placeholder-foto">
-        📷 Aqui podes incluir um diagrama gerado pelo Mermaid, dbdiagram.io ou Claude.<br>
-        Sugestão: pede ao Claude para gerar um diagrama Mermaid a partir do teu models.py.
-    </div>
 </div>
 
 <!-- ============================================ -->
@@ -216,7 +192,7 @@ class MakingOf(models.Model):
             </div>
         {% endfor %}
     {% else %}
-        <p><em>⚠️ Para esta secção funcionar, atualiza a view <code>sobre_view</code> em <code>views.py</code> (ver instruções no fundo da página) e adiciona o campo <code>tipo</code> ao modelo Tecnologia.</em></p>
+        <p><em>⚠️ Para esta secção funcionar, atualiza a view <code>sobre_view</code> em <code>views.py</code> e adiciona o campo <code>tipo</code> ao modelo Tecnologia.</em></p>
     {% endif %}
 </div>
 
@@ -225,12 +201,9 @@ class MakingOf(models.Model):
 <!-- ============================================ -->
 <div class="sobre-section">
     <h3>4. Estrutura de Navegação</h3>
-    <div class="placeholder-foto">
-        📷 Foto do mapa de navegação que desenhaste em papel.<br>
-        Sugestão de estrutura:<br><br>
-        <strong>Home</strong> → Tecnologias / UCs / Projetos / TFCs / Competências / Formações / Interesses / Making-Of / Sobre<br>
-        Cada página de listagem → CRUD (novo / editar / apagar)
-    </div>
+    <img src="/media/sobre/arquitetura.jpg" style="max-width:100%; border-radius:8px;" alt="Mapa de Navegação">
+    <p style="margin-top: 15px;"><strong>Estrutura:</strong> Home → Tecnologias / UCs / Projetos / TFCs / Competências / Formações / Interesses / Making-Of / Sobre</p>
+    <p>Cada página de listagem tem operações CRUD (criar / ler / editar / apagar).</p>
 </div>
 
 <!-- ============================================ -->
@@ -239,10 +212,9 @@ class MakingOf(models.Model):
 <div class="sobre-section">
     <h3>5. Repositório GitHub</h3>
     <p>
-        🔗 <a href="https://github.com/SEU_USERNAME/Francisco-pearson-22308485" target="_blank" style="font-weight: bold;">
-            github.com/SEU_USERNAME/Francisco-pearson-22308485
+        🔗 <a href="https://github.com/FranciscoPearson22308485/Francisco-pearson-22308485" target="_blank" style="font-weight: bold;">
+            github.com/FranciscoPearson22308485/Francisco-pearson-22308485
         </a>
-        <br><small>(substitui pelo teu URL real)</small>
     </p>
 
     <p>O Git e GitHub trazem várias vantagens ao desenvolvimento:</p>

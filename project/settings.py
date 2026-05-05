@@ -47,8 +47,9 @@ INSTALLED_APPS = [
     "festivais",
     "portfolio",
     "escola_online",
+    "accounts",  # NOVA LINHA
     # --- APLICAÇÕES EXTERNAS ---
-    "markdownify.apps.MarkdownifyConfig", # <-- Markdownify adicionado aqui!
+    "markdownify.apps.MarkdownifyConfig",
 ]
 
 MIDDLEWARE = [
@@ -149,3 +150,16 @@ MARKDOWNIFY = {
       "MARKDOWN_EXTENSIONS": ["markdown.extensions.fenced_code", ]
    }
 }
+
+
+# Redirect para login quando @login_required falhar
+LOGIN_URL = '/accounts/login/'
+
+
+# Configuração de Email (Gmail)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'franciscoxavierpearson@gmail.com'  
+EMAIL_HOST_PASSWORD = 'tbpirrcpaskswrzw'  

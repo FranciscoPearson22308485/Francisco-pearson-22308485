@@ -1,10 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from collections import defaultdict
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Tecnologia, UnidadeCurricular, Projeto, TFC, Competencia, Formacao, Interesse, MakingOf
 from .forms import ProjetoForm, TecnologiaForm, CompetenciaForm, FormacaoForm
 
 # ==========================================
-# VIEWS DE LISTAGEM
+# VIEWS DE LISTAGEM (públicas)
 # ==========================================
 
 def home_view(request):
@@ -42,79 +43,8 @@ def tfcs_view(request):
     tfcs = TFC.objects.prefetch_related('tecnologias').all()
     return render(request, 'portfolio/tfcs.html', {'tfcs': tfcs})
 
-# ==========================================
-# VIEWS DE CRUD: PROJETOS
-# ==========================================
-
-def novo_projeto_view(request):
-    if request.method == 'POST':
-        form = ProjetoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('portfolio:projetos')
-    else:
-        form = ProjetoForm()
-    return render(request, 'portfolio/novo_projeto.html', {'form': form})
-
-def editar_projeto_view(request, projeto_id):
-    projeto = get_object_or_404(Projeto, id=projeto_id)
-    if request.method == 'POST':
-        form = ProjetoForm(request.POST, request.FILES, instance=projeto)
-        if form.is_valid():
-            form.save()
-            return redirect('portfolio:projetos')
-    else:
-        form = ProjetoForm(instance=projeto)
-    return render(request, 'portfolio/editar_projeto.html', {'form': form, 'projeto': projeto})
-
-def apagar_projeto_view(request, projeto_id):
-    projeto = get_object_or_404(Projeto, id=projeto_id)
-    if request.method == 'POST':
-        projeto.delete()
-        return redirect('portfolio:projetos')
-    return render(request, 'portfolio/apagar_projeto.html', {'projeto': projeto})
-
-# ==========================================
-# VIEWS DE CRUD: TECNOLOGIAS
-# ==========================================
-
-def nova_tecnologia_view(request):
-    if request.method == 'POST':
-        form = TecnologiaForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('portfolio:tecnologias')
-    else:
-        form = TecnologiaForm()
-    return render(request, 'portfolio/nova_tecnologia.html', {'form': form})
-
-def editar_tecnologia_view(request, tecnologia_id):
-    tecnologia = get_object_or_404(Tecnologia, id=tecnologia_id)
-    if request.method == 'POST':
-        form = TecnologiaForm(request.POST, request.FILES, instance=tecnologia)
-        if form.is_valid():
-            form.save()
-            return redirect('portfolio:tecnologias')
-    else:
-        form = TecnologiaForm(instance=tecnologia)
-    return render(request, 'portfolio/editar_tecnologia.html', {'form': form, 'tecnologia': tecnologia})
-
-def apagar_tecnologia_view(request, tecnologia_id):
-    tecnologia = get_object_or_404(Tecnologia, id=tecnologia_id)
-    if request.method == 'POST':
-        tecnologia.delete()
-        return redirect('portfolio:tecnologias')
-    return render(request, 'portfolio/apagar_tecnologia.html', {'tecnologia': tecnologia})
-
-# ==========================================
-# VIEW SOBRE — Ficha 8 secção 2.4
-# ==========================================
-
 def sobre_view(request):
-    """
-    Página "Sobre esta Aplicação" — cumpre os 6 pontos da Ficha 8.
-    Agrupa tecnologias por tipo (Frontend, Backend, BD, Storage, Outros).
-    """
+    """Página Sobre esta Aplicação"""
     texto_markdown = """
 # Sobre esta Aplicação
 
@@ -145,8 +75,6 @@ O código está versionado e seguro na cloud:
 2. **Backup na cloud** — código não se perde se o computador avariar
 3. **Trabalho remoto** — desenvolvimento via GitHub Codespaces a partir de qualquer máquina
 """
-
-    # Agrupar tecnologias por tipo (Frontend / Backend / BD / Storage / Outros)
     tecnologias = Tecnologia.objects.select_related('tipo').all()
     tecnologias_por_tipo = defaultdict(list)
     for tech in tecnologias:
@@ -160,12 +88,83 @@ O código está versionado e seguro na cloud:
     })
 
 # ==========================================
-# VIEWS DE CRUD: COMPETÊNCIAS
+# VIEWS DE CRUD: PROJETOS (protegidas)
 # ==========================================
 
+@login_required
+def novo_projeto_view(request):
+    if request.method == 'POST':
+        form = ProjetoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('portfolio:projetos')
+    else:
+        form = ProjetoForm()
+    return render(request, 'portfolio/novo_projeto.html', {'form': form})
+
+@login_required
+def editar_projeto_view(request, projeto_id):
+    projeto = get_object_or_404(Projeto, id=projeto_id)
+    if request.method == 'POST':
+        form = ProjetoForm(request.POST, request.FILES, instance=projeto)
+        if form.is_valid():
+            form.save()
+            return redirect('portfolio:projetos')
+    else:
+        form = ProjetoForm(instance=projeto)
+    return render(request, 'portfolio/editar_projeto.html', {'form': form, 'projeto': projeto})
+
+@login_required
+def apagar_projeto_view(request, projeto_id):
+    projeto = get_object_or_404(Projeto, id=projeto_id)
+    if request.method == 'POST':
+        projeto.delete()
+        return redirect('portfolio:projetos')
+    return render(request, 'portfolio/apagar_projeto.html', {'projeto': projeto})
+
+# ==========================================
+# VIEWS DE CRUD: TECNOLOGIAS (protegidas)
+# ==========================================
+
+@login_required
+def nova_tecnologia_view(request):
+    if request.method == 'POST':
+        form = TecnologiaForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('portfolio:tecnologias')
+    else:
+        form = TecnologiaForm()
+    return render(request, 'portfolio/nova_tecnologia.html', {'form': form})
+
+@login_required
+def editar_tecnologia_view(request, tecnologia_id):
+    tecnologia = get_object_or_404(Tecnologia, id=tecnologia_id)
+    if request.method == 'POST':
+        form = TecnologiaForm(request.POST, request.FILES, instance=tecnologia)
+        if form.is_valid():
+            form.save()
+            return redirect('portfolio:tecnologias')
+    else:
+        form = TecnologiaForm(instance=tecnologia)
+    return render(request, 'portfolio/editar_tecnologia.html', {'form': form, 'tecnologia': tecnologia})
+
+@login_required
+def apagar_tecnologia_view(request, tecnologia_id):
+    tecnologia = get_object_or_404(Tecnologia, id=tecnologia_id)
+    if request.method == 'POST':
+        tecnologia.delete()
+        return redirect('portfolio:tecnologias')
+    return render(request, 'portfolio/apagar_tecnologia.html', {'tecnologia': tecnologia})
+
+# ==========================================
+# VIEWS DE CRUD: COMPETÊNCIAS (protegidas)
+# ==========================================
+
+@login_required
 def nova_competencia_view(request):
     if request.method == 'POST':
-        form = CompetenciaForm(request.POST, request.FILES)
+        form = CompetenciaForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('portfolio:competencias')
@@ -173,10 +172,11 @@ def nova_competencia_view(request):
         form = CompetenciaForm()
     return render(request, 'portfolio/nova_competencia.html', {'form': form})
 
+@login_required
 def editar_competencia_view(request, competencia_id):
     competencia = get_object_or_404(Competencia, id=competencia_id)
     if request.method == 'POST':
-        form = CompetenciaForm(request.POST, request.FILES, instance=competencia)
+        form = CompetenciaForm(request.POST, instance=competencia)
         if form.is_valid():
             form.save()
             return redirect('portfolio:competencias')
@@ -184,6 +184,7 @@ def editar_competencia_view(request, competencia_id):
         form = CompetenciaForm(instance=competencia)
     return render(request, 'portfolio/editar_competencia.html', {'form': form, 'competencia': competencia})
 
+@login_required
 def apagar_competencia_view(request, competencia_id):
     competencia = get_object_or_404(Competencia, id=competencia_id)
     if request.method == 'POST':
@@ -192,9 +193,10 @@ def apagar_competencia_view(request, competencia_id):
     return render(request, 'portfolio/apagar_competencia.html', {'competencia': competencia})
 
 # ==========================================
-# VIEWS DE CRUD: FORMAÇÕES
+# VIEWS DE CRUD: FORMAÇÕES (protegidas)
 # ==========================================
 
+@login_required
 def nova_formacao_view(request):
     if request.method == 'POST':
         form = FormacaoForm(request.POST, request.FILES)
@@ -205,6 +207,7 @@ def nova_formacao_view(request):
         form = FormacaoForm()
     return render(request, 'portfolio/nova_formacao.html', {'form': form})
 
+@login_required
 def editar_formacao_view(request, formacao_id):
     formacao = get_object_or_404(Formacao, id=formacao_id)
     if request.method == 'POST':
@@ -216,6 +219,7 @@ def editar_formacao_view(request, formacao_id):
         form = FormacaoForm(instance=formacao)
     return render(request, 'portfolio/editar_formacao.html', {'form': form, 'formacao': formacao})
 
+@login_required
 def apagar_formacao_view(request, formacao_id):
     formacao = get_object_or_404(Formacao, id=formacao_id)
     if request.method == 'POST':

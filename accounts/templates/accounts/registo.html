@@ -1,0 +1,16 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 400px;">
+    <h2>📝 Criar Conta</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success w-100 mt-3">Registar</button>
+    </form>
+    <hr>
+    <p class="text-center">
+        Já tens conta? <a href="{% url 'accounts:login' %}">Faz login</a>
+    </p>
+</div>
+{% endblock %}
