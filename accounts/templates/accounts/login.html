@@ -13,4 +13,16 @@
         Não tens conta? <a href="{% url 'accounts:registo' %}">Regista-te aqui</a>
     </p>
 </div>
+
+<hr style="margin: 30px 0;">
+    
+    <p style="text-align: center;">
+        <strong>Ou</strong>
+    </p>
+    
+    <p style="text-align: center; margin-top: 20px;">
+        <a href="{% url 'accounts:magic_link_request' %}" style="display: inline-block; background: #3b82f6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px;">
+            Entrar com Magic Link (Email)
+        </a>
+    </p>
 {% endblock %}

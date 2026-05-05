@@ -1,0 +1,14 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<section>
+    <h2>Erro na Autenticação</h2>
+    
+    <p style="color: red;">{{ erro }}</p>
+    
+    <p style="margin-top: 20px;">
+        <a href="{% url 'accounts:magic_link_request' %}">Pedir novo link</a> | 
+        <a href="{% url 'accounts:login' %}">Login com password</a>
+    </p>
+</section>
+{% endblock %}

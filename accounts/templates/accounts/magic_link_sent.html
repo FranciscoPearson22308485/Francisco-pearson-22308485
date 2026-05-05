@@ -1,0 +1,19 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<section>
+    <h2>Email Enviado!</h2>
+    
+    <p>Enviámos um link de autenticação para <strong>{{ email }}</strong></p>
+    
+    <p>Verifique a sua caixa de entrada e clique no link para entrar.</p>
+    
+    <p style="color: #666; margin-top: 20px;">
+        <small>O link expira em 15 minutos.</small>
+    </p>
+    
+    <p style="margin-top: 30px;">
+        <a href="{% url 'portfolio:home' %}">← Voltar à página inicial</a>
+    </p>
+</section>
+{% endblock %}

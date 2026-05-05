@@ -1,0 +1,26 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<section>
+    <h2>Login com Magic Link</h2>
+    
+    {% if erro %}
+        <p style="color: red;">{{ erro }}</p>
+    {% endif %}
+    
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label>Email:</label><br>
+            <input type="email" name="email" required style="padding: 8px; width: 300px;">
+        </p>
+        <button type="submit" style="background: #10b981; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;">
+            Enviar Link de Autenticação
+        </button>
+    </form>
+    
+    <p style="margin-top: 20px;">
+        <a href="{% url 'accounts:login' %}">← Voltar ao login com password</a>
+    </p>
+</section>
+{% endblock %}
