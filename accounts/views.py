@@ -36,7 +36,10 @@ def registo_view(request):
     if request.method == 'POST':
         form = RegistoForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            from django.contrib.auth.models import Group
+            grupo_autores, _ = Group.objects.get_or_create(name='autores')
+            user.groups.add(grupo_autores)
             return redirect('accounts:login')
     else:
         form = RegistoForm()

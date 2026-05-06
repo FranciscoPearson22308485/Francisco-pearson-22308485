@@ -1,0 +1,30 @@
+{% extends "portfolio/base.html" %}
+{% block titulo %}{{ acao }} Artigo{% endblock titulo %}
+{% block content %}
+<div style="max-width:700px; margin:0 auto; padding:20px;">
+    <h1>{{ acao }} Artigo</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div style="margin-bottom:16px;">
+            <label style="display:block; font-weight:bold; margin-bottom:6px;">Titulo *</label>
+            <input type="text" name="titulo" value="{{ artigo.titulo|default:'' }}" required style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px;">
+        </div>
+        <div style="margin-bottom:16px;">
+            <label style="display:block; font-weight:bold; margin-bottom:6px;">Texto *</label>
+            <textarea name="texto" rows="8" required style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px;">{{ artigo.texto|default:'' }}</textarea>
+        </div>
+        <div style="margin-bottom:16px;">
+            <label style="display:block; font-weight:bold; margin-bottom:6px;">Fotografia</label>
+            <input type="file" name="fotografia" accept="image/*" style="width:100%;">
+        </div>
+        <div style="margin-bottom:24px;">
+            <label style="display:block; font-weight:bold; margin-bottom:6px;">Link Externo</label>
+            <input type="url" name="link_externo" value="{{ artigo.link_externo|default:'' }}" placeholder="https://..." style="width:100%; padding:10px; border:1px solid #ddd; border-radius:6px;">
+        </div>
+        <div style="display:flex; gap:12px;">
+            <button type="submit" style="background:#0b406b; color:white; padding:10px 24px; border:none; border-radius:6px; cursor:pointer;">{{ acao }}</button>
+            <a href="{% url 'lista_artigos' %}" style="padding:10px 24px; border:1px solid #ddd; border-radius:6px; text-decoration:none; color:#333;">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}

@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "portfolio",
     "escola_online",
     "accounts",  # NOVA LINHA
+    "artigos",
     # --- APLICAÇÕES EXTERNAS ---
     "markdownify.apps.MarkdownifyConfig",
 ]
