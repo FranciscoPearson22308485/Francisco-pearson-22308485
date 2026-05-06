@@ -81,7 +81,7 @@
     <h3>1. Arquitetura MVT do Django</h3>
 
     <h4>Desenho da arquitetura (em papel)</h4>
-    <img src="/media/sobre/arquitetura.jpg" style="max-width:100%; border-radius:8px;" alt="Arquitetura MVT">
+    <img src="/media/sobre/arquitetura_navegacao.jpg" style="max-width:100%; border-radius:8px;" alt="Arquitetura MVT">
 
     <h4>Componentes e fluxos</h4>
     <p>A arquitetura <strong>MVT (Model-View-Template)</strong> do Django funciona assim:</p>
@@ -201,7 +201,7 @@ class MakingOf(models.Model):
 <!-- ============================================ -->
 <div class="sobre-section">
     <h3>4. Estrutura de Navegação</h3>
-    <img src="/media/sobre/arquitetura.jpg" style="max-width:100%; border-radius:8px;" alt="Mapa de Navegação">
+    <img src="/media/sobre/arquitetura_navegacao.jpg" style="max-width:100%; border-radius:8px;" alt="Mapa de Navegação">
     <p style="margin-top: 15px;"><strong>Estrutura:</strong> Home → Tecnologias / UCs / Projetos / TFCs / Competências / Formações / Interesses / Making-Of / Sobre</p>
     <p>Cada página de listagem tem operações CRUD (criar / ler / editar / apagar).</p>
 </div>
@@ -240,12 +240,6 @@ class MakingOf(models.Model):
         </a>
     </p>
 
-    {% if texto %}
-        <h4>Notas em Markdown (renderizado com markdownify)</h4>
-        <div style="background: #f8fafc; padding: 20px; border-radius: 8px; line-height: 1.7;">
-            {{ texto|markdownify }}
-        </div>
-    {% endif %}
 </div>
 
 {% endblock %}

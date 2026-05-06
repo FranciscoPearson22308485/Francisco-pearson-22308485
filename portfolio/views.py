@@ -44,46 +44,20 @@ def tfcs_view(request):
     return render(request, 'portfolio/tfcs.html', {'tfcs': tfcs})
 
 def sobre_view(request):
-    """Página Sobre esta Aplicação"""
-    texto_markdown = """
-# Sobre esta Aplicação
-
-Esta aplicação foi desenvolvida em **Django** e utiliza a arquitetura **MVT**
-(Model-View-Template).
-
-## 1. Arquitetura MVT
-
-O padrão MVT separa a aplicação em três componentes:
-
-* **Model** — estrutura da base de dados e comunicação com os dados
-* **View** — recebe o pedido do utilizador, consulta o Model e envia dados ao Template
-* **Template** — ficheiro HTML que apresenta a informação ao utilizador
-
-## 2. Modelação
-
-A modelação está descrita em `models.py` e o diagrama entidade-relação está
-representado no desenho à mão (ver imagem em baixo).
-
-## 5. Repositório GitHub
-
-O código está versionado e seguro na cloud:
-[github.com/FranciscoPearson22308485/Francisco-pearson-22308485](https://github.com/FranciscoPearson22308485/Francisco-pearson-22308485)
-
-**Vantagens do Git/GitHub:**
-
-1. **Controlo de Versões** — histórico de alterações e possibilidade de reverter
-2. **Backup na cloud** — código não se perde se o computador avariar
-3. **Trabalho remoto** — desenvolvimento via GitHub Codespaces a partir de qualquer máquina
-"""
-    tecnologias = Tecnologia.objects.select_related('tipo').all()
+    """Página Sobre esta Aplicação - APENAS tecnologias usadas neste projeto"""
+    
+    # Lista das tecnologias que REALMENTE usei neste projeto Django
+    nomes_usadas = ['Python', 'Django', 'HTML', 'CSS', 'SQLite', 'Git']
+    
+    tecnologias = Tecnologia.objects.filter(nome__in=nomes_usadas).select_related('tipo')
+    
     tecnologias_por_tipo = defaultdict(list)
     for tech in tecnologias:
         nome_tipo = tech.tipo.nome if tech.tipo else "Outros"
         tecnologias_por_tipo[nome_tipo].append(tech)
     tecnologias_por_tipo = dict(sorted(tecnologias_por_tipo.items()))
-
+    
     return render(request, 'portfolio/sobre.html', {
-        'texto': texto_markdown,
         'tecnologias_por_tipo': tecnologias_por_tipo,
     })
 
