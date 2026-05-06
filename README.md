@@ -1,35 +1,44 @@
-# Portfólio Django — Ficha 6
-**Francisco Pearson | 22308485 | Informática de Gestão**  
-**Universidade Lusófona | Programação Web | Prof. Lúcio Studer**
+# Portfolio Django — Francisco Pearson (22308485)
 
-## Credenciais Admin
-| Campo    | Valor    |
-|----------|----------|
-| Username | admin    |
-| Password | root2004 |
+Projeto desenvolvido no âmbito da disciplina de **Programação Web**  
+Universidade Lusófona — Informática de Gestão — 2025/2026
 
-## Lançar a aplicação
+## Tecnologias
+- Python 3.12 / Django 6.0
+- SQLite
+- HTML, CSS
+- GitHub Codespaces
+
+## Como instalar e correr
+
 ```bash
+git clone https://github.com/FranciscoPearson22308485/Francisco-pearson-22308485
+cd Francisco-pearson-22308485
+pip install -r requirements.txt
+cp .env.example .env  # preencher com credenciais Gmail
+python manage.py migrate
 python manage.py runserver
 ```
 
-## Carregar dados
-```bash
-python manage.py load_tfcs       # carrega 595 TFCs do JSON
-python manage.py load_ucs_api    # importa Licenciatura e UCs da API Lusófona
-```
+## Funcionalidades
 
-## Modelos do Portfólio
-- **Licenciatura** — curso que frequento
-- **Docente** — professores das UCs
-- **UnidadeCurricular** — disciplinas do curso
-- **Tecnologia** — linguagens, frameworks e ferramentas
-- **Projeto** — projectos realizados nas UCs
-- **TFC** — trabalhos finais de curso do DEISI (595 registos)
-- **Competência** — competências técnicas e soft skills
-- **Formação** — cursos e certificações
-- **Interesse** — interesses pessoais e profissionais *(entidade adicional)*
-- **MakingOf** — registo do processo de desenvolvimento
+### Autenticação
+- Login e logout com username/password
+- Registo de novos utilizadores
+- Magic Link por email (Gmail SMTP)
+- Grupos e permissões: `gestor-portfolio` e `autores`
 
-## Making Of
-Ver ficheiro [making_of.md](making_of.md)
+### Portfolio
+- Projetos, Tecnologias, Competências, Formações, UCs, Interesses
+- CRUD completo protegido por permissões
+- Making Of com histórico de decisões
+
+### Artigos
+- Criação e edição de artigos (só autores)
+- Sistema de Likes (qualquer visitante)
+- Comentários (utilizadores autenticados)
+- Autores só editam os seus próprios artigos
+
+## Credenciais de teste
+- **Admin:** `admin` / `root2004`
+- **URL:** https://cautious-space-umbrella-97g6ww5x59rx2px9g-8000.app.github.dev
